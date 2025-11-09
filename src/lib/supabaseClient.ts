@@ -1,7 +1,17 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Supabase project credentials (provided)
-const SUPABASE_URL = "https://opzpkztpbimqtesdwokp.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wenBrenRwYmltcXRlc2R3b2twIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI3MTY3MzksImV4cCI6MjA3ODI5MjczOX0.X0yz65v_aUMAcZPj6Kbt0UQ7tL65Qw220jCDY9Hlci4";
+// Use Vite environment variables. Create a .env (or set CI) with:
+// VITE_SUPABASE_URL=your-project-url
+// VITE_SUPABASE_ANON_KEY=your-anon-key
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+	// In development it's helpful to warn if env vars are missing.
+	// Do not throw so the app still starts; operations will fail with clearer errors.
+	// eslint-disable-next-line no-console
+	console.warn("Supabase environment variables are not set. Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file.");
+}
+
+export const supabase = createClient(SUPABASE_URL || "", SUPABASE_ANON_KEY || "");

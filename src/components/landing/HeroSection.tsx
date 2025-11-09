@@ -20,9 +20,11 @@ export default function HeroSection() {
       if (error) throw error;
       setMessage("شكرًا! تم إضافتك إلى قائمة الانتظار.");
       setEmail("");
-      setOpen(false);
+      // Keep the dialog open briefly so the user sees the success message, then auto-close
+      setTimeout(() => setOpen(false), 1500);
     } catch (err: any) {
-      setMessage(err.message || "حدث خطأ، حاول لاحقًا.");
+      // Supabase returns useful messages, but normalize fallback
+      setMessage(err?.message || "حدث خطأ، حاول لاحقًا.");
     } finally {
       setLoading(false);
     }
