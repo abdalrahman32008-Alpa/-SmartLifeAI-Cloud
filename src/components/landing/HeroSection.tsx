@@ -16,7 +16,7 @@ export default function HeroSection() {
     setLoading(true);
     setMessage(null);
     try {
-      const { data, error } = await supabase.from("waitlist_users").insert({ email }).select();
+      const { error } = await supabase.from("waitlist_users").insert({ email }).select();
       if (error) throw error;
       setMessage("شكرًا! تم إضافتك إلى قائمة الانتظار.");
       setEmail("");
