@@ -1,4 +1,3 @@
-import React from "react";
 import "./index.css";
 import HeroSection from "./components/landing/HeroSection";
 import FeaturesSection from "./components/landing/FeaturesSection";
