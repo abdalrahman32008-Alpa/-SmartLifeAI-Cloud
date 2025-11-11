@@ -1,4 +1,5 @@
 import TaskList from "@/components/dashboard/TaskList"
+import MoodLogger from "@/components/dashboard/MoodLogger"
 
 export default function Dashboard() {
   return (
@@ -42,6 +43,11 @@ export default function Dashboard() {
             Manage your smart life insights and analytics from here.
           </p>
           
+          {/* MoodLogger Component */}
+          <div className="mt-8">
+            <MoodLogger />
+          </div>
+
           {/* TaskList Component */}
           <div className="mt-8">
             <TaskList />
