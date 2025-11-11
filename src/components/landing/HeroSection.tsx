@@ -33,27 +33,27 @@ export default function HeroSection() {
   return (
     <section className="py-20 bg-gradient-to-b from-slate-900 to-slate-800 text-white">
       <div className="container mx-auto px-6 text-center">
-        <h1 className="text-5xl md:text-6xl font-extrabold mb-4">نظام التشغيل الذي يفهم حياتك</h1>
-        <p className="text-xl md:text-2xl text-slate-300 mb-8">لا تدير مهامك فقط. افهم نفسك. توقع أخطاءك. اتخذ قرارات أفضل.</p>
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-4">The OS that understands your life.</h1>
+        <p className="text-xl md:text-2xl text-slate-300 mb-8">Stop managing tasks. Start understanding yourself. Predict your mistakes. Make better decisions.</p>
 
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => setOpen(true)} className="bg-indigo-600 hover:bg-indigo-500">انضم إلى قائمة الانتظار</Button>
+            <Button onClick={() => setOpen(true)} className="bg-indigo-600 hover:bg-indigo-500">Join the Waitlist</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>انضم إلى قائمة الانتظار</DialogTitle>
-              <DialogDescription>أدخل بريدك الإلكتروني وسنضيفك إلى القائمة.</DialogDescription>
+              <DialogTitle>Join the Waitlist</DialogTitle>
+              <DialogDescription>Enter your email and we'll add you to the waitlist.</DialogDescription>
             </DialogHeader>
 
             <form onSubmit={handleJoin} className="mt-4 space-y-4">
               <div>
-                <Label htmlFor="email">البريد الإلكتروني</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
               <div className="flex items-center gap-3">
-                <Button type="submit" disabled={loading}>{loading ? "جاري الإرسال..." : "انضم"}</Button>
-                <Button variant="ghost" onClick={() => setOpen(false)}>إلغاء</Button>
+                <Button type="submit" disabled={loading}>{loading ? "Sending..." : "Join"}</Button>
+                <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
               </div>
               {message && <p className="text-sm text-slate-400">{message}</p>}
             </form>

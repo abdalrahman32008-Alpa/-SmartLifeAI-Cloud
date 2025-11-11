@@ -1,18 +1,18 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 const features = [
-  { title: "🧠 الذاكرة العاطفية", desc: "يتذكر كيف شعرت، ليس فقط ماذا فعلت" },
-  { title: "🔮 التنبؤ بالأخطاء", desc: "يحذرك قبل أن تكرر نفس الخطأ" },
-  { title: "🎨 التخصيص متعدد الحواس", desc: "يغير بيئتك لتناسب حالتك المزاجية" },
-  { title: "🤝 الذكاء الاجتماعي", desc: "يحلل علاقاتك ويساعدك على الحفاظ عليها" },
-  { title: "💭 مساعد التفكير الناقد", desc: "لا يعطيك الإجابة، بل يساعدك على التفكير" },
+  { title: "🧠 Episodic Memory", desc: "Remembers *how you felt*, not just *what you did*." },
+  { title: "🔮 Mistake Prediction", desc: "Warns you *before* you repeat the same mistake." },
+  { title: "🎨 Sensory Personalization", desc: "Changes your environment to match your mood." },
+  { title: "🤝 Deep Social Intelligence", desc: "Analyzes the health of your relationships." },
+  { title: "💭 Critical Thinking Coach", desc: "Uses the Socratic method to challenge your decisions." },
 ];
 
 export default function FeaturesSection() {
   return (
     <section className="py-16">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-8 text-center">ميزاتنا</h2>
+  <h2 className="text-3xl font-bold mb-8 text-center">Our Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {features.map((f) => (
             <Card key={f.title} className="p-4">
