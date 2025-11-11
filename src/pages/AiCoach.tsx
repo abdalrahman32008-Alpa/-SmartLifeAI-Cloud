@@ -3,6 +3,7 @@ import type { FormEvent } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { supabase } from "@/lib/supabaseClient"
 
 type Message = {
   id: string
@@ -38,15 +39,22 @@ export default function AiCoach() {
     setLoading(true)
 
     try {
-      // Call the AI backend (Supabase Edge Function 'ai-coach' to be created)
-      const res = await fetch("/api/ai-coach", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: userMsg.text }),
+      // Get current user token for context
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+
+      // Call Supabase Edge Function with auth header for context
+      const { data, error } = await supabase.functions.invoke("ai-coach", {
+        body: { prompt: userMsg.text },
+        headers: {
+          Authorization: session?.access_token ? `Bearer ${session.access_token}` : "",
+        },
       })
 
-      const data = await res.json()
-      const replyText = data?.reply || data?.message || "(No response)"
+      if (error) throw error
+
+      const replyText = data?.reply || "(No response)"
 
       const aiMsg: Message = {
         id: String(Date.now()) + "-a",
