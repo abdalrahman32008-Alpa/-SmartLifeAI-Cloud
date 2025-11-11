@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { supabase } from "@/lib/supabaseClient"
@@ -21,6 +21,44 @@ export default function MoodLogger() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [lastMood, setLastMood] = useState<number | null>(null)
+  const [completedTasks, setCompletedTasks] = useState<{
+    id: string
+    title: string
+  }[]>([])
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchCompletedTasks()
+  }, [])
+
+  const fetchCompletedTasks = async () => {
+    try {
+      setError("")
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+
+      if (!user) {
+        setCompletedTasks([])
+        return
+      }
+
+      const { data, error: fetchError } = await supabase
+        .from("tasks")
+        .select("id, title")
+        .eq("user_id", user.id)
+        .eq("completed", true)
+        .order("created_at", { ascending: false })
+
+      if (fetchError) {
+        setError(fetchError.message)
+      } else {
+        setCompletedTasks(data || [])
+      }
+    } catch (err: any) {
+      setError(err.message || "Failed to fetch completed tasks")
+    }
+  }
 
   const handleMoodSelect = async (moodScore: number) => {
     try {
@@ -37,12 +75,16 @@ export default function MoodLogger() {
         return
       }
 
-      // Insert mood log to Supabase
+      // Insert mood log to Supabase, including related_task_id if selected
+      const payload: any = {
+        mood_score: moodScore,
+        user_id: user.id,
+      }
+
+      if (selectedTaskId) payload.related_task_id = selectedTaskId
+
       const { error: insertError } = await supabase.from("mood_logs").insert([
-        {
-          mood_score: moodScore,
-          user_id: user.id,
-        },
+        payload,
       ])
 
       if (insertError) {
@@ -78,6 +120,20 @@ export default function MoodLogger() {
         )}
 
         <div className="flex gap-3 flex-wrap">
+          {/* Select dropdown for recently completed tasks */}
+          <div className="w-full mb-4">
+            <label className="block text-sm font-medium text-slate-700 mb-2">Link to a recently completed task? (Optional)</label>
+            <select
+              className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+              value={selectedTaskId ?? ""}
+              onChange={(e) => setSelectedTaskId(e.target.value || null)}
+            >
+              <option value="">-- No task --</option>
+              {completedTasks.map((t) => (
+                <option key={t.id} value={t.id}>{t.title}</option>
+              ))}
+            </select>
+          </div>
           {moodOptions.map((mood) => (
             <Button
               key={mood.score}

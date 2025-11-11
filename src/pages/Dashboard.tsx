@@ -1,5 +1,6 @@
 import TaskList from "@/components/dashboard/TaskList"
 import MoodLogger from "@/components/dashboard/MoodLogger"
+import Insights from "@/components/dashboard/Insights"
 
 export default function Dashboard() {
   return (
@@ -51,6 +52,11 @@ export default function Dashboard() {
           {/* TaskList Component */}
           <div className="mt-8">
             <TaskList />
+          </div>
+
+          {/* Insights Component */}
+          <div className="mt-8">
+            <Insights />
           </div>
         </div>
       </main>
