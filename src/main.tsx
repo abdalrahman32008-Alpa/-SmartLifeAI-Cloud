@@ -6,6 +6,7 @@ import App from './App.tsx'
 import Login from './pages/Login.tsx'
 import Signup from './pages/Signup.tsx'
 import Dashboard from './pages/Dashboard.tsx'
+import AiCoach from './pages/AiCoach.tsx'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: '/dashboard',
     element: <Dashboard />,
+  },
+  {
+    path: '/coach',
+    element: <AiCoach />,
   },
 ])
 
