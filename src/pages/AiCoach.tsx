@@ -34,7 +34,6 @@ export default function AiCoach() {
       text: input.trim(),
     }
 
-    setMessages((s) => [...s, userMsg])
     setInput("")
     setLoading(true)
 
@@ -62,7 +61,7 @@ export default function AiCoach() {
         text: replyText,
       }
 
-      setMessages((s) => [...s, aiMsg])
+      setMessages((s) => [...s, userMsg, aiMsg])
     } catch (err: any) {
       const errMsg: Message = {
         id: String(Date.now()) + "-e",
