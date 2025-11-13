@@ -122,8 +122,9 @@ export default function MoodLogger() {
         <div className="flex gap-3 flex-wrap">
           {/* Select dropdown for recently completed tasks */}
           <div className="w-full mb-4">
-            <label className="block text-sm font-medium text-slate-700 mb-2">Link to a recently completed task? (Optional)</label>
+            <label htmlFor="task-select" className="block text-sm font-medium text-slate-700 mb-2">Link to a recently completed task? (Optional)</label>
             <select
+              id="task-select"
               className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
               value={selectedTaskId ?? ""}
               onChange={(e) => setSelectedTaskId(e.target.value || null)}
