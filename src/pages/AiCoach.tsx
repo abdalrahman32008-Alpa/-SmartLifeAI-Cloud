@@ -85,7 +85,7 @@ export default function AiCoach() {
           <div className="flex flex-col h-[60vh]">
             <div
               ref={messagesRef}
-              className="flex-1 overflow-auto p-4 space-y-3 bg-white rounded border border-slate-100"
+              className="flex-1 overflow-auto p-4 space-y-3 bg-white rounded border border-slate-100 flex flex-col"
             >
               {messages.length === 0 ? (
                 <div className="text-slate-500">Ask me anything — I'll help you think deeper.</div>
